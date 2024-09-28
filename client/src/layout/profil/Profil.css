@@ -1,0 +1,47 @@
+#Profil {
+  width: 100%;
+  height: 100vh;
+
+  background-color: var(--color3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.frontPictureContainer {
+  position: relative;
+  width: 80%;
+  height: 30vh;
+  border-radius: 0 0 15px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color2);
+  overflow: hidden;
+}
+
+.frontPicture {
+  position: absolute;
+  top: -150%;
+  max-width: 1980px;
+}
+
+.userHomeInfo {
+  margin: 10px;
+  border-radius: 10px;
+  border: 1px solid lightgray;
+  width: 40%;
+  height: 55vh;
+  background-color: var(--color2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userHomeInfo label {
+  margin: 10px;
+}
+
+#description {
+  width: 70%;
+}

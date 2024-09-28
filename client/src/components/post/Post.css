@@ -1,0 +1,47 @@
+#Post {
+  width: 50vw;
+  background-color: var(--color2);
+  margin: 20px;
+  border-radius: 15px;
+  padding: 20px;
+
+  border: 1px solid lightgray;
+}
+
+.postInfo {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.postContent {
+  padding: 10px;
+}
+
+.postActions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.likeButton {
+  margin: 5px;
+  padding: 3px;
+  border-radius: 10px;
+}
+
+.likeButton:hover {
+  background-color: gray;
+}
+
+.dateCreated {
+  padding: 10px;
+}

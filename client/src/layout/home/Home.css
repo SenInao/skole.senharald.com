@@ -1,0 +1,8 @@
+.postsWrapper {
+  height: 100%;
+  background-color: var(--color3);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

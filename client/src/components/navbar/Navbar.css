@@ -1,0 +1,50 @@
+#Navbar{
+  width: 100%;
+  height: 12vh;
+
+  background-color: var(--color1);
+  color: white;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#navbarItems {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.navbarButton {
+  padding: 1.1rem;
+  border: none;
+  background-color: var(--color1);
+  color: white;
+  font-size: 1.2rem;
+
+  transition: 0.1s background-color ease-in-out,
+    0.1s color ease-in-out;
+
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.navbarButton:hover {
+  background-color: white;
+  color: var(--color1);
+}
+
+.Fjesbok{
+  margin: 10px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.iconContainer{
+  margin: 10px;
+  cursor: pointer;
+}
