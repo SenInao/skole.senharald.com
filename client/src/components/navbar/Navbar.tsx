@@ -4,15 +4,22 @@ import { useNavigate } from "react-router-dom"
 
 const Navbar : React.FC = () => {
   const navigate = useNavigate()
+  const loggedIn = true
+
   return (
     <nav id="Navbar">
       <h1 className="Fjesbok" onClick={()=>{navigate("/")}}>Fjesbok</h1>
       <div id="navbarItems">
-        <button className="navbarButton" onClick={()=>{navigate("/nyttinnlegg")}}>Nytt inlegg</button>
-        <button className="navbarButton">Venner</button>
+        {loggedIn ? <button className="navbarButton" onClick={()=>{navigate("/nyttinnlegg")}}>Nytt inlegg</button> : null}
+        {loggedIn ? <button className="navbarButton">Venner</button> : null}
+        {loggedIn ? 
         <div className="iconContainer" onClick={()=>{navigate("/profil")}}>
           <BsPersonCircle cursor="pointer" color="white" size="7vh"/>
-        </div>
+        </div> : null
+        }
+
+        {loggedIn ? null : <button className="navbarButton">Log in</button> }
+        {loggedIn ? null : <button className="navbarButton">Register</button> }
       </div>
     </nav>
   )
