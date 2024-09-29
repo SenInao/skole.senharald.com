@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 const Navbar : React.FC = () => {
   const navigate = useNavigate()
-  const loggedIn = true
+  const loggedIn = false
 
   return (
     <nav id="Navbar">
@@ -18,8 +18,8 @@ const Navbar : React.FC = () => {
         </div> : null
         }
 
-        {loggedIn ? null : <button className="navbarButton">Log in</button> }
-        {loggedIn ? null : <button className="navbarButton">Register</button> }
+        {loggedIn ? null : <button className="navbarButton" onClick={()=>{navigate("/login")}}>Log in</button> }
+        {loggedIn ? null : <button className="navbarButton" onClick={()=>{navigate("/registrer")}}>Registrer</button> }
       </div>
     </nav>
   )
