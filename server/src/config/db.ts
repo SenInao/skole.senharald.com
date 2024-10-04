@@ -8,7 +8,7 @@ if (!mongoURL) {
 
 try {
   mongoose.connect(mongoURL)
-  console.log("Connected to db")
+  console.log("Connected to database")
 } catch (error) {
   throw error
 }

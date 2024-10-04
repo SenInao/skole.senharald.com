@@ -1,11 +1,12 @@
 import dotenv from "dotenv"
+dotenv.config()
 
 import express from "express"
 
+import "./config/db"
+
 import userApiRoutes from "./routes/user/route"
 import errHandler from "./middlewares/globalErrorHandler"
-
-dotenv.config()
 
 const app = express()
 
