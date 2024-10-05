@@ -12,9 +12,7 @@ import errHandler from "./middlewares/globalErrorHandler"
 //add session attr to Request type
 declare module "express-serve-static-core" {
   interface Request {
-    session : {
-      userAuth : string
-    }
+    session:any
   }
 }
 

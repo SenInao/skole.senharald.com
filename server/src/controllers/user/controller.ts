@@ -18,7 +18,10 @@ const loginCtrl = async (req: Request, res: Response, next: NextFunction) => {
     if (!user) {
       const err = new Error("Wrong username or password")
       next(err)
+      return
     }
+
+    req.session.userAuth = user.id
 
     res.json({status:"sucess"})
   } catch (err) {
