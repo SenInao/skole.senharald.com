@@ -1,6 +1,7 @@
 import {Request, Response, NextFunction} from "express"
+import User from "../../models/user/User"
 
-const loginCtrl = (req: Request, res: Response, next: NextFunction) => {
+const loginCtrl = async (req: Request, res: Response, next: NextFunction) => {
   const {username, password} = req.body
 
   if (!username) {
@@ -12,6 +13,13 @@ const loginCtrl = (req: Request, res: Response, next: NextFunction) => {
   }
 
   try {
+    const user = await User.findOne({username:username, password:password})
+
+    if (!user) {
+      const err = new Error("Wrong username or password")
+      next(err)
+    }
+
     res.json({status:"sucess"})
   } catch (err) {
     console.log(err)
