@@ -30,4 +30,50 @@ const loginCtrl = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
-export {loginCtrl}
+const registerCtrl = async (req: Request, res: Response, next: NextFunction) => {
+  const {username, password} = req.body
+
+  if (!username) {
+    const err = new Error("Missing username")
+    next(err)
+  } else if (!password) {
+    const err = new Error("Missing password")
+    next(err)
+  }
+
+  try {
+    const usernameTaken  = await User.findOne({username:username})
+    if (usernameTaken) {
+      const err = new Error("Username taken")
+      next(err)
+      return
+    }
+
+    const user = await User.create({
+      username: username,
+      password: password
+    })
+
+    await user.save({validateBeforeSave: false})
+
+    req.session.userAuth = user.id
+
+    res.json({"Status":"Sucess"})
+
+  } catch (err) {
+    console.log(err)
+    next(new Error())
+  }
+}
+
+const logoutCtrl = (req: Request, res: Response, next: NextFunction) => {
+  try {
+    req.session.userAuth = null
+    res.json({"Status":"Sucess"})
+  } catch (err) {
+    console.log(err)
+    next(new Error())
+  }
+}
+
+export {loginCtrl, registerCtrl, logoutCtrl}
