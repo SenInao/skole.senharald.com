@@ -2,15 +2,21 @@ import { useRef } from "react"
 import Navbar from "../../components/navbar/Navbar"
 import "./Login.css"
 import loginReq from "../../utils/loginReq"
+import showLabel from "../../utils/label"
 
 const Login : React.FC = () => {
   const usernameRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
+  const infoRef = useRef<HTMLLabelElement>(null)
 
   function onLogin() {
-    if (!usernameRef.current || ! passwordRef.current) return
+    if (!usernameRef.current || ! passwordRef.current || !infoRef.current) return
     const username = usernameRef.current.value
-    const password = usernameRef.current.value
+    const password = passwordRef.current.value
+    if (!username || !password) {
+      showLabel(infoRef.current, "Alle felt nødvendig", "red")
+      return
+    }
     loginReq("login", username, password, ()=>{},()=>{})
   }
 
@@ -19,6 +25,7 @@ const Login : React.FC = () => {
       <Navbar/>
       <div className="loginForm">
         <h3>Log in</h3>
+        <label ref={infoRef} className="info-label">Error</label>
         <div className="inputLabel">
           <label>Brukernavn</label>
         </div>
