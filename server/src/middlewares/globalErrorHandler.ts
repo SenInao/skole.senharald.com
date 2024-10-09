@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction} from "express"
 
 const errHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-  const status = 500
+  const status = 200
   const message = err.message || "Internal Server Error"
 
   console.log(`Error: ${message}`)
