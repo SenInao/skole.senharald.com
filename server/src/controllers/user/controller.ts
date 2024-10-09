@@ -7,9 +7,11 @@ const loginCtrl = async (req: Request, res: Response, next: NextFunction) => {
   if (!username) {
     const err = new Error("Missing username")
     next(err)
+    return
   } else if (!password) {
     const err = new Error("Missing password")
     next(err)
+    return
   }
 
   try {
@@ -36,9 +38,11 @@ const registerCtrl = async (req: Request, res: Response, next: NextFunction) => 
   if (!username) {
     const err = new Error("Missing username")
     next(err)
+    return
   } else if (!password) {
     const err = new Error("Missing password")
     next(err)
+    return
   }
 
   try {
@@ -76,4 +80,14 @@ const logoutCtrl = (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
-export {loginCtrl, registerCtrl, logoutCtrl}
+const profileCtrl = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await User.findById(req.session.userAuth)
+    res.json({user:user})
+  } catch (err) {
+    console.log(err)
+    next(new Error())
+  }
+}
+
+export {loginCtrl, registerCtrl, logoutCtrl, profileCtrl}
