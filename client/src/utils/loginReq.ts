@@ -1,26 +1,28 @@
-const loginReq = (type: string, username: string, password: string, err: any, callback: any) => {
-
+const loginReq = (type: string, username: string, password: string) => {
   const bod = {
     username : username, 
     password : password
   }
 
-  try {
-    fetch(window.location.origin + "/api/user/" + type, {
-      method : "POST",
-      body : JSON.stringify(bod)
+  return fetch(window.location.origin + "/api/user/" + type, {
+    method : "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body : JSON.stringify(bod)
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        return {sucess:false, error:data.error.message}
+      } else {
+        return {sucess:true}
+      }
     })
-      .then(response => response.json())
-      .then(data => {
-        if (data.error) {
-          err(data.error.message)
-        }
-      })
-
-  } catch (error) {
-    console.log(error)
-    callback()
-  }
+    .catch(err => {
+      console.log(err)
+      return {sucess:false, error:"Server error"}
+    })
 }
 
 export default loginReq

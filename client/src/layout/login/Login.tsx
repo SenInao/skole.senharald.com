@@ -9,15 +9,23 @@ const Login : React.FC = () => {
   const passwordRef = useRef<HTMLInputElement>(null)
   const infoRef = useRef<HTMLLabelElement>(null)
 
-  function onLogin() {
+  async function onLogin() {
     if (!usernameRef.current || ! passwordRef.current || !infoRef.current) return
     const username = usernameRef.current.value
     const password = passwordRef.current.value
+
     if (!username || !password) {
       showLabel(infoRef.current, "Alle felt nødvendig", "red")
       return
     }
-    loginReq("login", username, password, ()=>{},()=>{})
+
+    const result = await loginReq("login", username, password)
+
+    if (result.sucess) {
+      showLabel(infoRef.current, "Sucess", "green")
+    } else {
+      showLabel(infoRef.current, result.error, "red")
+    }
   }
 
   return (

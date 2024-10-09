@@ -9,20 +9,29 @@ const Register : React.FC = () => {
   const password1Ref = useRef<HTMLInputElement>(null)
   const infoRef = useRef<HTMLLabelElement>(null)
 
-  function onRegister() {
+  async function onRegister() {
     if (!usernameRef.current || ! passwordRef.current || !infoRef.current || !password1Ref.current) return
     const username = usernameRef.current.value
     const password = passwordRef.current.value
     const password1 = password1Ref.current.value
+
     if (!username || !password || !password1) {
       showLabel(infoRef.current, "Alle felt nødvendig", "red")
       return
     }
+
     if (!(password == password1)) {
       showLabel(infoRef.current, "Passord må være likt", "red")
       return
     }
-    loginReq("register", username, password, ()=>{},()=>{})
+
+    const result = await loginReq("register", username, password)
+
+    if (result.sucess) {
+      showLabel(infoRef.current, "Sucess", "green")
+    } else {
+      showLabel(infoRef.current, result.error, "red")
+    }
   }
 
   return (
