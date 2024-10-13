@@ -14,14 +14,14 @@ const loginReq = (type: string, username: string, password: string) => {
     .then(response => response.json())
     .then(data => {
       if (data.error) {
-        return {sucess:false, error:data.error.message}
+        return {sucess:false, error:data.error.message, user: null}
       } else {
-        return {sucess:true}
+        return {sucess:true, user: data.user}
       }
     })
     .catch(err => {
       console.log(err)
-      return {sucess:false, error:"Server error"}
+      return {sucess:false, error:"Server error", user: null}
     })
 }
 

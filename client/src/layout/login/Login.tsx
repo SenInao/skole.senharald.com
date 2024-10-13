@@ -1,13 +1,21 @@
-import { useRef } from "react"
+import { useContext, useRef } from "react"
 import Navbar from "../../components/navbar/Navbar"
 import "./Login.css"
 import loginReq from "../../utils/loginReq"
 import showLabel from "../../utils/label"
+import { UserContext } from "../../context/userContext"
+import { useNavigate } from "react-router-dom"
 
 const Login : React.FC = () => {
   const usernameRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
   const infoRef = useRef<HTMLLabelElement>(null)
+
+  const navigate = useNavigate()
+
+  const userContext = useContext(UserContext)
+  if (!userContext) return null
+  const {setUser} = userContext
 
   async function onLogin() {
     if (!usernameRef.current || ! passwordRef.current || !infoRef.current) return
@@ -20,9 +28,10 @@ const Login : React.FC = () => {
     }
 
     const result = await loginReq("login", username, password)
+    setUser(result.user)
 
     if (result.sucess) {
-      showLabel(infoRef.current, "Sucess", "green")
+      navigate("/profil")
     } else {
       showLabel(infoRef.current, result.error, "red")
     }

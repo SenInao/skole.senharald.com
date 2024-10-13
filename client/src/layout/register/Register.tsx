@@ -1,13 +1,21 @@
-import { useRef } from "react"
+import { useContext, useRef } from "react"
 import Navbar from "../../components/navbar/Navbar"
 import showLabel from "../../utils/label"
 import loginReq from "../../utils/loginReq"
+import { useNavigate } from "react-router-dom"
+import { UserContext } from "../../context/userContext"
 
 const Register : React.FC = () => {
   const usernameRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
   const password1Ref = useRef<HTMLInputElement>(null)
   const infoRef = useRef<HTMLLabelElement>(null)
+
+  const navigate = useNavigate()
+
+  const userContext = useContext(UserContext)
+  if (!userContext) return null
+  const {setUser} = userContext
 
   async function onRegister() {
     if (!usernameRef.current || ! passwordRef.current || !infoRef.current || !password1Ref.current) return
@@ -26,9 +34,10 @@ const Register : React.FC = () => {
     }
 
     const result = await loginReq("register", username, password)
+    setUser(result.user)
 
     if (result.sucess) {
-      showLabel(infoRef.current, "Sucess", "green")
+      navigate("/profil")
     } else {
       showLabel(infoRef.current, result.error, "red")
     }
