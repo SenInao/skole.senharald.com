@@ -1,4 +1,5 @@
 import {createContext, ReactNode, useEffect, useState} from "react"
+import getUser from "../utils/getUser"
 
 interface User {
   username: string,
@@ -22,14 +23,13 @@ const UserProvider: React.FC<Props> = ({children}) => {
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    fetch(window.location.origin + "/api/user/profile")
-      .then(response => response.json())
-      .then(data => {
-        if (!data.error) {
-          setUser(data.user)
+    getUser()
+      .then(user => {
+        if (user) {
+          setUser(user)
         }
+        setLoading(false)
       })
-      .finally(() => setLoading(false))
   }, [])
 
   return (
