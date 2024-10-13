@@ -5,11 +5,11 @@ const loginCtrl = async (req: Request, res: Response, next: NextFunction) => {
   const {username, password} = req.body
 
   if (!username) {
-    const err = new Error("Missing username")
+    const err = new Error("Mangler brukernavn")
     next(err)
     return
   } else if (!password) {
-    const err = new Error("Missing password")
+    const err = new Error("Mangler passord")
     next(err)
     return
   }
@@ -18,14 +18,14 @@ const loginCtrl = async (req: Request, res: Response, next: NextFunction) => {
     const user = await User.findOne({username:username, password:password})
 
     if (!user) {
-      const err = new Error("Wrong username or password")
+      const err = new Error("Feil brukernavn eller passord")
       next(err)
       return
     }
 
     req.session.userAuth = user.id
 
-    res.json({status:"sucess"})
+    res.json({status:true})
   } catch (err) {
     console.log(err)
     next(new Error())
@@ -36,11 +36,11 @@ const registerCtrl = async (req: Request, res: Response, next: NextFunction) => 
   const {username, password} = req.body
 
   if (!username) {
-    const err = new Error("Missing username")
+    const err = new Error("Mangler brukernavn")
     next(err)
     return
   } else if (!password) {
-    const err = new Error("Missing password")
+    const err = new Error("Mangler passord")
     next(err)
     return
   }
@@ -48,7 +48,7 @@ const registerCtrl = async (req: Request, res: Response, next: NextFunction) => 
   try {
     const usernameTaken  = await User.findOne({username:username})
     if (usernameTaken) {
-      const err = new Error("Username taken")
+      const err = new Error("Brukernavn opptatt")
       next(err)
       return
     }
@@ -62,7 +62,7 @@ const registerCtrl = async (req: Request, res: Response, next: NextFunction) => 
 
     req.session.userAuth = user.id
 
-    res.json({"Status":"Sucess"})
+    res.json({status:true})
 
   } catch (err) {
     console.log(err)
@@ -73,7 +73,7 @@ const registerCtrl = async (req: Request, res: Response, next: NextFunction) => 
 const logoutCtrl = (req: Request, res: Response, next: NextFunction) => {
   try {
     req.session.userAuth = null
-    res.json({"Status":"Sucess"})
+    res.json({status:true})
   } catch (err) {
     console.log(err)
     next(new Error())
