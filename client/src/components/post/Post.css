@@ -4,12 +4,11 @@
   margin: 20px;
   border-radius: 15px;
   padding: 20px;
-
   border: 1px solid lightgray;
+  height: auto;
 }
 
 .postInfo {
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;

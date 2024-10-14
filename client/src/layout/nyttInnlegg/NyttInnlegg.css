@@ -8,54 +8,31 @@
   align-items: center;
 }
 
-.creationContainer {
-  border-radius: 15px;
+.content-input {
+  width: 90%;
+  border: none;
+  outline: none;
+  padding: 10px;
+  resize: none;
+}
+
+.publish-button {
+  padding: 1.2rem;
+  background-color: var(--color2);
   border: 1px solid lightgray;
-  margin: 20px;
-  width: 400px;
-  height: 70vh;
-  background-color: var(--color2);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  border-radius: 5px;
 }
 
-.creationContainer h2 {
-  margin: 20px;
+.publish-button:hover {
+  background-color: lightgray;
 }
 
-.contentInput {
-  width: 70%;
-  height: 70%;
-  border-radius: 15px;
-  border: 1px solid gray;
-  padding: 20px;
-}
-
-.createPostButton {
-  margin: 15px;
-  width: 7rem;
-  height: 3rem;
-  border: 1px solid gray;
-  border-radius: 15px;
-  background-color: var(--color2);
-  cursor: pointer;
-}
-
-.createPostButton:hover {
-  background-color: var(--color3);
-}
-
-.attachButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.attach-button {
+  margin: 5px;
   padding: 5px;
-  border-radius: 100%;
-  cursor: pointer;
+  border-radius: 10px;
 }
 
-.attachButton:hover {
+.attach-button:hover {
   background-color: lightgray;
 }

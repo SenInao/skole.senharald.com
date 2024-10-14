@@ -21,6 +21,7 @@ const Navbar : React.FC = () => {
       method: "POST"
     })
     setUser(null)
+    navigate("/")
   }
 
   return (

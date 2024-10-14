@@ -4,6 +4,7 @@ import getUser from "../utils/getUser"
 interface User {
   username: string,
   friends: User[],
+  bio: string,
 }
 
 interface UserContextType {
