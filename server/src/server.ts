@@ -8,6 +8,7 @@ import getSession from "./config/session"
 
 import userApiRoutes from "./routes/user/route"
 import errHandler from "./middlewares/globalErrorHandler"
+import postApiRoutes from "./routes/post/route"
 
 //add session attr to Request type
 declare module "express-serve-static-core" {
@@ -29,6 +30,9 @@ app.use(session)
 
 //user api routes
 app.use("/api/user", userApiRoutes)
+
+//post api routes
+app.use("/api/post", postApiRoutes)
 
 //global error handler
 app.use(errHandler)

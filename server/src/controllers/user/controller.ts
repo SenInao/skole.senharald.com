@@ -25,7 +25,7 @@ const loginCtrl = async (req: Request, res: Response, next: NextFunction) => {
 
     req.session.userAuth = user.id
 
-    res.json({status:true})
+    res.json({status:true, user: user})
   } catch (err) {
     console.log(err)
     next(new Error())
@@ -62,8 +62,7 @@ const registerCtrl = async (req: Request, res: Response, next: NextFunction) => 
 
     req.session.userAuth = user.id
 
-    res.json({status:true})
-
+    res.json({status:true, user: user})
   } catch (err) {
     console.log(err)
     next(new Error())

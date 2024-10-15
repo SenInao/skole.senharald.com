@@ -20,7 +20,11 @@ const userSchema = new mongoose.Schema({
   comments:[{
     type:mongoose.Schema.Types.ObjectId,
     ref:"Comment"
-  }]
+  }],
+  bio: {
+  type: String,
+    required: false
+  }
 })
 
 const User = mongoose.model("User", userSchema)
