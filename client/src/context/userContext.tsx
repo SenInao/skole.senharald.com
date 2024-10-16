@@ -1,15 +1,10 @@
 import {createContext, ReactNode, useEffect, useState} from "react"
 import getUser from "../utils/getUser"
-
-interface User {
-  username: string,
-  friends: User[],
-  bio: string,
-}
+import { UserType } from "../typedef/typedefs"
 
 interface UserContextType {
-  user: User | null
-  setUser: (user:User | null) => void
+  user: UserType | null
+  setUser: (user:UserType | null) => void
   loading: boolean
 }
 
@@ -20,7 +15,7 @@ interface Props {
 const UserContext = createContext<UserContextType | undefined>(undefined)
 
 const UserProvider: React.FC<Props> = ({children}) => {
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<UserType | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {

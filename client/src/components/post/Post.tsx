@@ -1,8 +1,15 @@
 import "./Post.css"
 import {BsPersonCircle} from "react-icons/bs"
 import {AiOutlineLike, AiOutlineDislike} from "react-icons/ai"
+import { PostType } from "../../typedef/typedefs"
 
-const Post : React.FC = () => {
+interface Props {
+  post: PostType
+}
+
+const Post : React.FC<Props> = ({post}) => {
+  const date = new Date(post.createdAt)
+
   return (
     <div id="Post">
       <div className="postInfo">
@@ -10,11 +17,11 @@ const Post : React.FC = () => {
           <div className="iconContainer">
             <BsPersonCircle cursor="pointer" color="gray" size="30px"/>
           </div>
-          <label>Sen Harald Hjort Inao</label>
+          <label>{post.author.username}</label>
         </div>
-        <label className="dateCreated">2 d</label>
+        <label className="dateCreated">{date.toLocaleString()}</label>
       </div>
-      <p className="postContent">lorem lore mlore mlore mlore mlore mloremloremloremloreml oremloremloremloreml oremlo remlore mloremloremloremloremloreml oremloremloremloremloremlorem</p>
+      <p className="postContent">{post.content}</p>
 
       <div className="postActions">
         <div className="likeButton">

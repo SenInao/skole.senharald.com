@@ -1,6 +1,5 @@
 import {BsPersonCircle} from "react-icons/bs"
 import "./Profil.css"
-import image from "./bg.jpg"
 import Navbar from "../../components/navbar/Navbar"
 import { useContext } from "react"
 import { UserContext } from "../../context/userContext"
