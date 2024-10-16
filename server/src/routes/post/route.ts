@@ -5,6 +5,6 @@ import { createCtrl, getPostsCtrl } from "../../controllers/post/controller"
 const postApiRoutes = express.Router()
 
 postApiRoutes.post("/create", authenticate, createCtrl)
-postApiRoutes.get("/posts", getPostsCtrl)
+postApiRoutes.get("/", getPostsCtrl)
 
 export default postApiRoutes

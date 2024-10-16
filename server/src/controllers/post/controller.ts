@@ -4,7 +4,8 @@ import Post from "../../models/post/Post"
 
 const getPostsCtrl = async (req: Request, res: Response, next:NextFunction) => {
   try {
-    const posts = await Post.collection.find({}, {projection:{content:true}}).toArray()
+    const posts = await Post.find().populate({path:"author", select:"username -_id"})
+
     res.json(posts)
   } catch (err) {
     console.log(err)
