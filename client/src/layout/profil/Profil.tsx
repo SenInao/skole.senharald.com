@@ -19,9 +19,6 @@ const Profil : React.FC = () => {
   return (
     <div id="Profil">
       <Navbar/>
-      <div className="frontPictureContainer">
-        <img src={image} className="frontPicture"/>
-      </div>
       <div className="userHomeInfo">
         <div className="iconContainer">
           <BsPersonCircle cursor="pointer" color="gray" size="7rem"/>
