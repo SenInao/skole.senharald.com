@@ -18,7 +18,7 @@ const Login : React.FC = () => {
   const {setUser} = userContext
 
   async function onLogin() {
-    if (!usernameRef.current || ! passwordRef.current || !infoRef.current) return
+    if (!usernameRef.current || ! passwordRef.current) return
     const username = usernameRef.current.value
     const password = passwordRef.current.value
 

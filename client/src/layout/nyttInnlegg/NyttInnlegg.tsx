@@ -9,6 +9,7 @@ import showLabel from "../../utils/label";
 const NyttInnlegg : React.FC = () => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
   const infoLabelRef = useRef<HTMLLabelElement>(null)
+  const btnRef = useRef<HTMLButtonElement>(null)
 
   const userContext = useContext(UserContext)
   if (!userContext) return null
@@ -22,12 +23,16 @@ const NyttInnlegg : React.FC = () => {
   }
 
   function createPost() {
-    if (!textAreaRef.current || !infoLabelRef.current) return
+    if (!textAreaRef.current || !btnRef.current) return
+
     const content = textAreaRef.current.value
+
     if (!content) {
-      showLabel(infoLabelRef.current, "Kan ikke publisere med ingen innhold", "red")
+      showLabel(infoLabelRef.current, "Kan ikke publisere uten innhold", "red")
       return
     }
+
+    btnRef.current.style.display = "none"
 
     fetch(window.location.origin + "/api/post/create", {
       method : "POST",
@@ -36,6 +41,17 @@ const NyttInnlegg : React.FC = () => {
       },
       body : JSON.stringify({content:content})
     })
+      .then(response => response.json())
+      .then(data => {
+        if (data.sucess) {
+          showLabel(infoLabelRef.current, "Publisert!", "green")
+        } else {
+          showLabel(infoLabelRef.current, data.error, "red")
+        }
+        if (btnRef.current) {
+          btnRef.current.style.display = "block"
+        }
+      })
   }
 
   if (!user) {
@@ -58,7 +74,7 @@ const NyttInnlegg : React.FC = () => {
           <textarea className="content-input" autoFocus onInput={autoResize} ref={textAreaRef}></textarea>
         </div>
         <div className="postActions">
-          <button className="publish-button" onClick={createPost}>Publiser</button>
+          <button ref={btnRef} className="publish-button" onClick={createPost}>Publiser</button>
           <IoIosAttach size="30px" color="gray" className="attach-button"/>
         </div>
     </div>

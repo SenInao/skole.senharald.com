@@ -18,7 +18,7 @@ const Register : React.FC = () => {
   const {setUser} = userContext
 
   async function onRegister() {
-    if (!usernameRef.current || ! passwordRef.current || !infoRef.current || !password1Ref.current) return
+    if (!usernameRef.current || ! passwordRef.current || !password1Ref.current) return
     const username = usernameRef.current.value
     const password = passwordRef.current.value
     const password1 = password1Ref.current.value
