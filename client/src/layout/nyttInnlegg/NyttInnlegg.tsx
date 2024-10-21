@@ -62,7 +62,7 @@ const NyttInnlegg : React.FC = () => {
     <div id="NyttInnlegg">
       <Navbar/>
         <label className="info-label" style={{marginTop:"10px"}} ref={infoLabelRef}></label>
-        <div id="Post">
+        <div className="Post">
           <div className="postInfo">
             <div className="userInfo">
               <div className="iconContainer">

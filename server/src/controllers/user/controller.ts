@@ -81,7 +81,7 @@ const logoutCtrl = (req: Request, res: Response, next: NextFunction) => {
 
 const profileCtrl = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user = await User.findById(req.session.userAuth)
+    const user = await User.findById(req.session.userAuth).populate({path:"posts"})
     res.json({user:user})
   } catch (err) {
     console.log(err)

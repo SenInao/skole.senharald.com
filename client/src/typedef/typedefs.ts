@@ -1,6 +1,7 @@
 export interface UserType {
   username: string,
   friends: UserType[],
+  posts: PostType[],
   bio: string,
 }
 

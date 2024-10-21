@@ -3,6 +3,7 @@ import "./Profil.css"
 import Navbar from "../../components/navbar/Navbar"
 import { useContext } from "react"
 import { UserContext } from "../../context/userContext"
+import Post from "../../components/post/Post"
 
 const Profil : React.FC = () => {
 
@@ -25,6 +26,11 @@ const Profil : React.FC = () => {
         <h3>{user.username}</h3>
         <label>Bio:</label>
         <p id="description">{user.bio}</p>
+      </div>
+      <div className="userPosts">
+        {user.posts.map(post => {
+            return <Post key={user.posts.indexOf(post)} post={post}/>
+          })}
       </div>
     </div>
   )

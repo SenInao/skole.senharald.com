@@ -11,7 +11,7 @@ const Post : React.FC<Props> = ({post}) => {
   const date = new Date(post.createdAt)
 
   return (
-    <div id="Post">
+    <div className="Post">
       <div className="postInfo">
         <div className="userInfo">
           <div className="iconContainer">
@@ -27,9 +27,11 @@ const Post : React.FC<Props> = ({post}) => {
         <div className="likeButton">
           <AiOutlineLike size="20px"/>
         </div>
+        <label>5</label>
         <div className="likeButton">
           <AiOutlineDislike size="20px"/>
         </div>
+        <label>5</label>
       </div>
     </div>
   )
