@@ -5,11 +5,14 @@ import "./NyttInnlegg.css"
 import { IoIosAttach } from "react-icons/io";
 import { UserContext } from "../../context/userContext";
 import showLabel from "../../utils/label";
+import { useNavigate } from "react-router-dom";
 
 const NyttInnlegg : React.FC = () => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
   const infoLabelRef = useRef<HTMLLabelElement>(null)
   const btnRef = useRef<HTMLButtonElement>(null)
+
+  const navigate = useNavigate()
 
   const userContext = useContext(UserContext)
   if (!userContext) return null
@@ -45,6 +48,7 @@ const NyttInnlegg : React.FC = () => {
       .then(data => {
         if (data.sucess) {
           showLabel(infoLabelRef.current, "Publisert!", "green")
+          navigate("/")
         } else {
           showLabel(infoLabelRef.current, data.error, "red")
         }

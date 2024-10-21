@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react"
+import { KeyboardEvent, useContext, useRef } from "react"
 import Navbar from "../../components/navbar/Navbar"
 import "./Login.css"
 import loginReq from "../../utils/loginReq"
@@ -37,21 +37,27 @@ const Login : React.FC = () => {
     }
   }
 
+  function onKeydown(e:KeyboardEvent) {
+    if (e.key === "Enter") {
+      onLogin()
+    }
+  }
+
   return (
     <div className="Login">
       <Navbar/>
       <div className="loginForm">
-        <h3>Log in</h3>
+        <h3>Logg inn</h3>
         <label ref={infoRef} className="info-label">Error</label>
         <div className="inputLabel">
           <label>Brukernavn</label>
         </div>
-        <input ref={usernameRef} type="text" className="loginInput"></input>
+        <input ref={usernameRef} type="text" className="loginInput" onKeyDown={onKeydown}></input>
         <div className="inputLabel">
           <label>Passord</label>
         </div>
-        <input ref={passwordRef} type="password" className="loginInput"></input>
-        <button className="loginButton" onClick={onLogin}>Log in</button>
+        <input ref={passwordRef} type="password" className="loginInput" onKeyDown={onKeydown}></input>
+        <button className="loginButton" onClick={onLogin}>Logg inn</button>
         <a href="/registrer">Registrer</a>
       </div>
     </div>

@@ -25,6 +25,11 @@ const loginCtrl = async (req: Request, res: Response, next: NextFunction) => {
 
     req.session.userAuth = user.id
 
+    await user.populate({path:"posts", populate:[
+      {path:"author", select:"username -_id"},
+      {path:"likes", select:"username -_id"},
+      {path:"dislikes", select:"username -_id"}
+    ]})
     res.json({status:true, user: user})
   } catch (err) {
     console.log(err)
@@ -81,7 +86,17 @@ const logoutCtrl = (req: Request, res: Response, next: NextFunction) => {
 
 const profileCtrl = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user = await User.findById(req.session.userAuth).populate({path:"posts"})
+    const user = await User.findById(req.session.userAuth)
+    if (!user) {
+      const err = new Error("Bruker finnes ikke")
+      next(err)
+      return
+    }
+    await user.populate({path:"posts", populate:[
+      {path:"author", select:"username -_id"},
+      {path:"likes", select:"username -_id"},
+      {path:"dislikes", select:"username -_id"}
+    ]})
     res.json({user:user})
   } catch (err) {
     console.log(err)

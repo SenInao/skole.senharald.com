@@ -1,19 +1,41 @@
 import {BsPersonCircle} from "react-icons/bs"
 import "./Profil.css"
 import Navbar from "../../components/navbar/Navbar"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../context/userContext"
 import Post from "../../components/post/Post"
+import getUser from "../../utils/getUser"
+import Loading from "../../components/loading/Loading"
+import NotAllowed from "../../components/notAllowed/NotAllowed"
+import {PostType} from "../../typedef/typedefs"
 
 const Profil : React.FC = () => {
+  const [userUpdated, setUpdate] = useState(false)
 
   const userContext = useContext(UserContext)
   if (!userContext)return null
   
-  const {user} = userContext
+  const {user, setUser} = userContext
+
+  useEffect(() => {
+    if (!userUpdated) {
+      getUser()
+        .then(user => {
+          if (user) {
+            user.posts.sort((a:PostType, b:PostType) => b.createdAt < a.createdAt ? -1 : b.createdAt > a.createdAt ? 1 : 0)
+            setUser(user)
+          }
+          setUpdate(true)
+        })
+    }
+  }, [])
 
   if (!user) {
-    return <div>Ikke tillat</div>
+    return <NotAllowed/>
+  }
+
+  if (!userUpdated) {
+    return <Loading/>
   }
 
   return (

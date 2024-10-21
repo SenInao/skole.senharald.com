@@ -62,7 +62,7 @@ const Register : React.FC = () => {
         </div>
         <input ref={password1Ref} type="password" className="loginInput"></input>
         <button className="loginButton" onClick={onRegister}>Registrer</button>
-        <a href="/login">Log in</a>
+        <a href="/login">Logg inn</a>
       </div>
     </div>
   )

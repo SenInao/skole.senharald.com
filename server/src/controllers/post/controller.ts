@@ -4,7 +4,9 @@ import Post from "../../models/post/Post"
 
 const getPostsCtrl = async (req: Request, res: Response, next:NextFunction) => {
   try {
-    const posts = await Post.find().populate({path:"author", select:"username -_id"}).populate({path:"likes", select:"username -_id"})
+    const posts = await Post.find().populate({path:"author", select:"username -_id"})
+      .populate({path:"likes", select:"username -_id"})
+      .populate({path:"dislikes", select:"username -_id"})
 
     res.json(posts)
   } catch (err) {

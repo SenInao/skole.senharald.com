@@ -2,6 +2,7 @@
   --color1: #1877F2;
   --color2: white;
   --color3: #F2F0EF;
+  background-color: var(--color3);
 }
 
 * {

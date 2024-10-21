@@ -42,14 +42,16 @@ const Post : React.FC<Props> = ({post: initialPost}) => {
     })
     if (like) {
       const i = userListIndex(user, post.likes)
-      const likes = [...post.likes].splice(i, 0)
+      const likes = [...post.likes]
+      likes.splice(i, 1)
       setPost(prevPost => ({
         ...prevPost,
         likes: likes
       }))
     } else {
       const i = userListIndex(user, post.dislikes)
-      const dislikes = [...post.dislikes].splice(i, 0)
+      const dislikes = [...post.dislikes]
+      dislikes.splice(i, 1)
       setPost(prevPost => ({
         ...prevPost,
         dislikes: dislikes

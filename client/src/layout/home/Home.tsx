@@ -3,6 +3,7 @@ import Navbar from "../../components/navbar/Navbar"
 import Post from "../../components/post/Post"
 import "./Home.css"
 import {PostType} from "../../typedef/typedefs"
+import Loading from "../../components/loading/Loading"
 
 
 const Home : React.FC = () => {
@@ -12,14 +13,13 @@ const Home : React.FC = () => {
     fetch(window.location.origin + "/api/post/")
       .then(response => response.json())
       .then(data => {
+        data.sort((a:PostType, b:PostType) => b.createdAt < a.createdAt ? -1 : b.createdAt > a.createdAt ? 1 : 0)
         setPosts(data)
       })
   }, [])
 
   if (!posts) {
-    return <div>Loading</div>
-  } else {
-      console.log(posts)
+    return <Loading/>
   }
 
   return (

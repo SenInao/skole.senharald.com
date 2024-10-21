@@ -6,6 +6,7 @@ import Login from "./layout/login/Login";
 import Register from "./layout/register/Register";
 import { useContext } from "react";
 import { UserContext } from "./context/userContext";
+import Navbar from "./components/navbar/Navbar";
 
 function App() {
   const userContext = useContext(UserContext)
@@ -13,21 +14,17 @@ function App() {
   
   const {loading} = userContext
 
-  if (loading) {
-    return (
-      <h1>Loading</h1>
-    )
-  }
-
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/profil" element={<Profil/>}/>
-        <Route path="/nyttinnlegg" element={<NyttInnlegg/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/registrer" element={<Register/>}/>
-      </Routes>
+      {loading ? <Navbar/> : (
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+            <Route path="/profil" element={<Profil/>}/>
+            <Route path="/nyttinnlegg" element={<NyttInnlegg/>}/>
+            <Route path="/login" element={<Login/>}/>
+            <Route path="/registrer" element={<Register/>}/>
+          </Routes>
+      )}
     </BrowserRouter>
   );
 }

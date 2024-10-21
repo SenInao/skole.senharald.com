@@ -10,7 +10,7 @@ const Navbar : React.FC = () => {
   const userContext = useContext(UserContext)
   if (!userContext) return null
   
-  const {user, setUser} = userContext
+  const {user, setUser, loading} = userContext
 
   function profileIconPress() {
     setDropdown(!showDropdown)
@@ -22,6 +22,14 @@ const Navbar : React.FC = () => {
     })
     setUser(null)
     navigate("/")
+  }
+
+  if (loading) {
+    return (
+      <nav id="Navbar">
+        <h1 className="Fjesbok" onClick={()=>{navigate("/")}}>Fjesbok</h1>
+      </nav>
+    )
   }
 
   return (
@@ -36,13 +44,13 @@ const Navbar : React.FC = () => {
             <div className="profile-dropdown">
               <button onClick={()=>{navigate("/profil")}}>Min profil</button>
               <button onClick={()=>{navigate("/")}}>Venner</button>
-              <button onClick={logout}>Log ut</button>
+              <button onClick={logout}>Logg ut</button>
             </div> : null
           }
         </div> : null
         }
 
-        {user ? null : <button className="navbarButton" onClick={()=>{navigate("/login")}}>Log in</button> }
+        {user ? null : <button className="navbarButton" onClick={()=>{navigate("/login")}}>Logg inn</button> }
         {user ? null : <button className="navbarButton" onClick={()=>{navigate("/registrer")}}>Registrer</button> }
       </div>
     </nav>
