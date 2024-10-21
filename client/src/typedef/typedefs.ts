@@ -6,10 +6,11 @@ export interface UserType {
 }
 
 export interface PostType{
+  _id: string,
   author: UserType,
   content: string,
-  likes: string[],
-  dislikes: string[],
+  likes: UserType[],
+  dislikes: UserType[],
   comments: string[],
   createdAt: string,
 }

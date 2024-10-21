@@ -2,13 +2,106 @@ import "./Post.css"
 import {BsPersonCircle} from "react-icons/bs"
 import {AiOutlineLike, AiOutlineDislike} from "react-icons/ai"
 import { PostType } from "../../typedef/typedefs"
+import { UserContext } from "../../context/userContext"
+import { useContext, useState } from "react"
+import userListIndex from "../../utils/userListIndex"
 
 interface Props {
   post: PostType
 }
 
-const Post : React.FC<Props> = ({post}) => {
+const Post : React.FC<Props> = ({post: initialPost}) => {
+  const [post, setPost] = useState(initialPost)
+
+  const userContext = useContext(UserContext)
+  if (!userContext) return null
+  
+  const {user} = userContext
+  
   const date = new Date(post.createdAt)
+
+  let dislikeColor = "black"
+  let likeColor = "black"
+
+  if (user) {
+    if (userListIndex(user, post.likes) !== -1) {
+      likeColor = "red"
+    } else if (userListIndex(user, post.dislikes) !== -1) {
+      dislikeColor = "red"
+    }
+  }
+
+  function unLikePost(like: boolean) {
+    if (!user) return
+    fetch(window.location.origin + "/api/post/u-lik", {
+      method:"POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({id:post._id})
+    })
+    if (like) {
+      const i = userListIndex(user, post.likes)
+      const likes = [...post.likes].splice(i, 0)
+      setPost(prevPost => ({
+        ...prevPost,
+        likes: likes
+      }))
+    } else {
+      const i = userListIndex(user, post.dislikes)
+      const dislikes = [...post.dislikes].splice(i, 0)
+      setPost(prevPost => ({
+        ...prevPost,
+        dislikes: dislikes
+      }))
+    }
+  }
+
+  function likePost() {
+    if (likeColor === "red") {
+      unLikePost(true)
+      return
+    }
+    if (dislikeColor === "red") {
+      unLikePost(false)
+    }
+
+    if (!user) return
+    fetch(window.location.origin + "/api/post/lik", {
+      method:"POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({id:post._id})
+    })
+    setPost(prevPost => ({
+      ...prevPost,
+      likes: [...prevPost.likes, user]
+    }))
+  }
+
+  function dislikePost() {
+    if (dislikeColor === "red") {
+      unLikePost(false)
+      return
+    }
+    if (likeColor === "red") {
+      unLikePost(true)
+    }
+
+    if (!user) return
+    fetch(window.location.origin + "/api/post/dislik", {
+      method:"POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({id:post._id})
+    })
+    setPost(prevPost => ({
+      ...prevPost,
+      dislikes: [...prevPost.dislikes, user]
+    }))
+  }
 
   return (
     <div className="Post">
@@ -24,14 +117,14 @@ const Post : React.FC<Props> = ({post}) => {
       <p className="postContent">{post.content}</p>
 
       <div className="postActions">
-        <div className="likeButton">
-          <AiOutlineLike size="20px"/>
+        <div className="likeButton" onClick={likePost}>
+          <AiOutlineLike size="20px" color={likeColor}/>
         </div>
-        <label>5</label>
-        <div className="likeButton">
-          <AiOutlineDislike size="20px"/>
+        <label>{post.likes.length}</label>
+        <div className="likeButton" onClick={dislikePost}>
+          <AiOutlineDislike size="20px" color={dislikeColor}/>
         </div>
-        <label>5</label>
+        <label>{post.dislikes.length}</label>
       </div>
     </div>
   )
