@@ -43,7 +43,7 @@ const Navbar : React.FC = () => {
           { showDropdown ? 
             <div className="profile-dropdown">
               <button onClick={()=>{navigate("/profil")}}>Min profil</button>
-              <button onClick={()=>{navigate("/")}}>Venner</button>
+              <button onClick={()=>{navigate("/profil/venner")}}>Venner</button>
               <button onClick={logout}>Logg ut</button>
             </div> : null
           }

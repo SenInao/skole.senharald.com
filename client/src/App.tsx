@@ -7,6 +7,7 @@ import Register from "./layout/register/Register";
 import { useContext } from "react";
 import { UserContext } from "./context/userContext";
 import Navbar from "./components/navbar/Navbar";
+import Venner from "./layout/profil/venner/Venner";
 
 function App() {
   const userContext = useContext(UserContext)
@@ -23,6 +24,7 @@ function App() {
             <Route path="/nyttinnlegg" element={<NyttInnlegg/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/registrer" element={<Register/>}/>
+            <Route path="/profil/venner" element={<Venner/>}/>
           </Routes>
       )}
     </BrowserRouter>
