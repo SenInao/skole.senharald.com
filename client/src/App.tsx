@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { UserContext } from "./context/userContext";
 import Navbar from "./components/navbar/Navbar";
 import Venner from "./layout/profil/venner/Venner";
+import VenneSok from "./layout/profil/venner/sok/VenneSok";
 
 function App() {
   const userContext = useContext(UserContext)
@@ -25,6 +26,7 @@ function App() {
             <Route path="/login" element={<Login/>}/>
             <Route path="/registrer" element={<Register/>}/>
             <Route path="/profil/venner" element={<Venner/>}/>
+            <Route path="/profil/venner/sok" element={<VenneSok/>}/>
           </Routes>
       )}
     </BrowserRouter>

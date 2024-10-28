@@ -14,6 +14,30 @@
   align-items: center;
 }
 
+#venner-tittel{
+  margin-top: 5vh;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 50%;
+}
+
+#leggtilvenn {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid lightgray;
+  background-color: var(--color2);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#leggtilvenn:hover {
+  background-color: lightgray;
+}
+
 .friendDisplay {
   width: 50%;
   height: 5rem;
@@ -26,6 +50,11 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  cursor: pointer;
+}
+
+.friendDisplay:hover {
+  background-color: lightgray;
 }
 
 .usernameLabel {
