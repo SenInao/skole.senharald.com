@@ -104,4 +104,24 @@ const profileCtrl = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
-export {loginCtrl, registerCtrl, logoutCtrl, profileCtrl}
+const searchUserCtrl = async (req:Request, res: Response, next: NextFunction) => {
+  const {sok} = req.params
+
+  if (!sok) {
+    const err = new Error("Søk nødvendig")
+    next(err)
+    return
+  }
+  try {
+    const users = await User.find({
+      username: {$regex:`^${sok}`, $options: 'i' }
+    }).select("username")
+
+    res.json({users:users.map(user=>user.username)})
+  } catch (err) {
+    console.log(err)
+    next(new Error())
+  }
+}
+
+export {loginCtrl, registerCtrl, logoutCtrl, profileCtrl, searchUserCtrl}
