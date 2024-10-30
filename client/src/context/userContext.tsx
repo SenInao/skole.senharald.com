@@ -19,7 +19,7 @@ const UserProvider: React.FC<Props> = ({children}) => {
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    getUser()
+    getUser("")
       .then(user => {
         if (user) {
           setUser(user)

@@ -7,7 +7,7 @@ const userApiRoutes = express.Router()
 userApiRoutes.post("/login", loginCtrl)
 userApiRoutes.post("/register", registerCtrl)
 userApiRoutes.post("/logout", authenticate, logoutCtrl)
-userApiRoutes.get("/profile", authenticate, profileCtrl)
+userApiRoutes.get("/profile/:username?", authenticate, profileCtrl)
 userApiRoutes.get("/search/:sok", searchUserCtrl)
 
 export default userApiRoutes

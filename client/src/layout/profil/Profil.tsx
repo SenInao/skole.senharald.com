@@ -7,35 +7,40 @@ import Post from "../../components/post/Post"
 import getUser from "../../utils/getUser"
 import Loading from "../../components/loading/Loading"
 import NotAllowed from "../../components/notAllowed/NotAllowed"
-import {PostType} from "../../typedef/typedefs"
+import {PostType, UserType} from "../../typedef/typedefs"
 
 const Profil : React.FC = () => {
-  const [userUpdated, setUpdate] = useState(false)
+  const [userProfil, setProfil] = useState<UserType | null>(null)
+  const [loading, setLoading] = useState(true)
 
   const userContext = useContext(UserContext)
   if (!userContext)return null
-  
-  const {user, setUser} = userContext
 
+  let username = ""
+
+  const url = window.location.href
+  const link = url.split("/")
+  if (link[link.length-1] && link.length > 4) {
+    username = link[link.length-1]
+  }
+  
   useEffect(() => {
-    if (!userUpdated) {
-      getUser()
-        .then(user => {
-          if (user) {
-            user.posts.sort((a:PostType, b:PostType) => b.createdAt < a.createdAt ? -1 : b.createdAt > a.createdAt ? 1 : 0)
-            setUser(user)
-          }
-          setUpdate(true)
-        })
-    }
+    getUser(username)
+      .then(user => {
+        if (user) {
+          user.posts.sort((a:PostType, b:PostType) => b.createdAt < a.createdAt ? -1 : b.createdAt > a.createdAt ? 1 : 0)
+          setProfil(user)
+        }
+        setLoading(false)
+      })
   }, [])
 
-  if (!user) {
-    return <NotAllowed/>
+  if (loading) {
+    return <Loading/>
   }
 
-  if (!userUpdated) {
-    return <Loading/>
+  if (!userProfil) {
+    return <NotAllowed/>
   }
 
   return (
@@ -45,13 +50,13 @@ const Profil : React.FC = () => {
         <div className="iconContainer">
           <BsPersonCircle cursor="pointer" color="gray" size="7rem"/>
         </div>
-        <h3>{user.username}</h3>
-        <label>Bio:</label>
-        <p id="description">{user.bio}</p>
+        <h3>{userProfil.username}</h3>
+        <label>Bio: {userProfil.bio}</label>
+        <p id="description">{userProfil.bio}</p>
       </div>
       <div className="userPosts">
-        {user.posts.map(post => {
-            return <Post key={user.posts.indexOf(post)} post={post}/>
+        {userProfil.posts.map(post => {
+            return <Post key={userProfil.posts.indexOf(post)} post={post}/>
           })}
       </div>
     </div>

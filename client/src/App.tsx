@@ -27,6 +27,7 @@ function App() {
             <Route path="/registrer" element={<Register/>}/>
             <Route path="/profil/venner" element={<Venner/>}/>
             <Route path="/profil/venner/sok" element={<VenneSok/>}/>
+            <Route path="/profil/*" element={<Profil/>}/>
           </Routes>
       )}
     </BrowserRouter>

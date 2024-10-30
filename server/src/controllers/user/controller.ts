@@ -85,18 +85,29 @@ const logoutCtrl = (req: Request, res: Response, next: NextFunction) => {
 }
 
 const profileCtrl = async (req: Request, res: Response, next: NextFunction) => {
+  const {username} = req.params
+
   try {
-    const user = await User.findById(req.session.userAuth)
+    let user
+
+    if (!username) {
+      user = await User.findById(req.session.userAuth).select("username posts friends comments bio -_id")
+    } else {
+      user = await User.findOne({username:username}).select("username posts friends comments bio -_id")
+    }
+
     if (!user) {
       const err = new Error("Bruker finnes ikke")
       next(err)
       return
     }
+
     await user.populate({path:"posts", populate:[
       {path:"author", select:"username -_id"},
       {path:"likes", select:"username -_id"},
       {path:"dislikes", select:"username -_id"}
     ]})
+
     res.json({user:user})
   } catch (err) {
     console.log(err)
@@ -115,9 +126,9 @@ const searchUserCtrl = async (req:Request, res: Response, next: NextFunction) =>
   try {
     const users = await User.find({
       username: {$regex:`^${sok}`, $options: 'i' }
-    }).select("username")
+    }).select("username -_id")
 
-    res.json({users:users.map(user=>user.username)})
+    res.json({users:users})
   } catch (err) {
     console.log(err)
     next(new Error())
