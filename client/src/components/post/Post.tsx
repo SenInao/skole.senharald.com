@@ -5,6 +5,7 @@ import { PostType } from "../../typedef/typedefs"
 import { UserContext } from "../../context/userContext"
 import { useContext, useState } from "react"
 import userListIndex from "../../utils/userListIndex"
+import { useNavigate } from "react-router-dom"
 
 interface Props {
   post: PostType
@@ -12,6 +13,8 @@ interface Props {
 
 const Post : React.FC<Props> = ({post: initialPost}) => {
   const [post, setPost] = useState(initialPost)
+
+  const navigate = useNavigate()
 
   const userContext = useContext(UserContext)
   if (!userContext) return null
@@ -108,9 +111,9 @@ const Post : React.FC<Props> = ({post: initialPost}) => {
   return (
     <div className="Post">
       <div className="postInfo">
-        <div className="userInfo">
+        <div className="userInfo" onClick={()=>{navigate("profil/"+post.author.username)}}>
           <div className="iconContainer">
-            <BsPersonCircle cursor="pointer" color="gray" size="30px"/>
+            <BsPersonCircle color="gray" size="30px"/>
           </div>
           <label>{post.author.username}</label>
         </div>

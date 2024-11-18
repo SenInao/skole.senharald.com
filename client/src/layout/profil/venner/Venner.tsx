@@ -18,13 +18,7 @@ const Venner:React.FC = () => {
           <div className="iconContainer">
             <BsPersonCircle cursor="pointer" color="gray" size="50px"/>
           </div>
-          <label className="usernameLabel">Ben</label>
-        </div>
-        <div className="friendDisplay">
-          <div className="iconContainer">
-            <BsPersonCircle cursor="pointer" color="gray" size="50px"/>
-          </div>
-          <label className="usernameLabel">Tom</label>
+          <label className="usernameLabel">Test-venn</label>
         </div>
       </div>
     </div>
